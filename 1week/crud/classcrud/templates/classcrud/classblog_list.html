@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <mata charset="urf-8">
+        <title>CRUD practice!</title>
+    </head>
+
+    <body>
+        <a href="{% url 'new' %}"> Add </a>
+
+        <br>
+
+    {% for blog in object_list %} <!-- object_list : 지정한 모델로 만들어진 모든 객체들의 목록 // blog_list로 바꾼다면..?-->
+        <h2>{{blog.title}}</h2>
+        <h5>{{blog.created_at}}</h5>
+        <p>{{blog.body}}</p>
+        <a href = "{% url 'detail' blog.id %}" > Show detail </a> <!-- throw pk value-->
+        <br>
+        <a href = "{% url 'change' blog.id %}" > Edit </a>
+        <br>
+        <a href = "{% url 'del' blog.id %}" > Delete </a>
+        <br>
+
+        <hr>
+    {%endfor%}
+    </body>
+</html>
