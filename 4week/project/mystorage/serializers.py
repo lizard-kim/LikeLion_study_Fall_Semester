@@ -16,23 +16,15 @@ class AlbumSerializer(serializers.ModelSerializer):
     author_name = serializers.ReadOnlyField(source='author.username')
     image = serializers.ImageField(use_url=True)
 
-from rest_framework.response import Response
-from rest_framework import status
-
+    class Meta:
+        model = Album
+        fields = ('pk', 'author_name', 'image', 'desc')
 
 class FilesSerializer(serializers.ModelSerializer):
 
     author_name = serializers.ReadOnlyField(source='author.username')
     myfiles = serializers.FileField(use_url=True)
 
-    parser_classes = (MultiPartParser, FormParser)
-
-    #create() 오버라이딩
-    
-    def post(self, request, *args, **kwargs):
-        serializer = FilesSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=HTTP_201_CREATED)
-        else:
-            return Response(serializer.error, status=HTTP_400_BAD_REQUEST)
+    class Meta:
+        model = Files
+        fields = ('pk', 'author_name', 'myfiles', 'desc')
